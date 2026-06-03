@@ -18,6 +18,9 @@
   }
 }
 
+button{
+  margin: 10px;
+}
 
 .hero {
   position: relative;

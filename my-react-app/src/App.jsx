@@ -1,17 +1,24 @@
 import './App.css'
-
+import { useState } from 'react'
 function App() {
-  let age = 0;
+  const [count, setCount] = useState(0);
 
-  const increaseAge = () => {
-    age = age + 1;
-    console.log(age)
+  const increase = () => {
+    setCount(count + 1)
+  }
+  const decrease = () => {
+    setCount(count - 1)
+  }
+  const setZero = () => {
+    setCount(0)
   }
   return (
     <div className="hero">
-      <h1>{age}</h1>
-      <button onClick={increaseAge}>increase age</button>
-    </div>
+      <button onClick={increase}>increase</button>
+      <button onClick={decrease}>decrease</button>
+      <button onClick={setZero}>set to 0</button>
+      <h1>{count}</h1>
+    </div >
   )
 }
 export default App;
