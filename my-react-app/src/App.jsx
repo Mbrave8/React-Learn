@@ -1,5 +1,6 @@
 import './App.css'
 import { useState } from 'react'
+import Course from './Course'
 function App() {
   const [courseList, setCourseList] = useState([])
   const [newCourse, setNewCourse] = useState("")
@@ -8,12 +9,19 @@ function App() {
     setNewCourse(event.target.value)
   }
 
- 
+  const CompleteCourse = (courseId) => {
+    const newCourseList = courseList.map((course) => {
+      if (course.id === courseId) return { ...course, isCompleted: !course.isCompleted }
+      else return (course)
+    })
+    setCourseList(newCourseList)
+  }
 
   const addCourse = () => {
     const course = {
       id: courseList.length === 0 ? 1 : courseList[courseList.length - 1].id + 1,
-      courseName: newCourse
+      courseName: newCourse,
+      isCompleted: false
     }
     setCourseList([...courseList, course])
     console.log(courseList)
@@ -24,7 +32,6 @@ function App() {
     ))
   }
 
-
   return (
     <div className="hero">
       <div className='add-course'>
@@ -33,10 +40,10 @@ function App() {
       </div>
       <div className='list'>
         {courseList.map((course, index) => {
-          return (<div key={`div_${index}`}>
-            <h1 key={`h1${index}`}> {course.courseName} </h1>
-            <button key={`btn${index}`} onClick={() => clear(course.id)}>clear</button>
-          </div>
+          return (
+            <Course key={index} course={course} clear={clear}
+              CompleteCourse={CompleteCourse}
+            />
           )
         })}
       </div>
